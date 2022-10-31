@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+    elastic:
+        driver: bridge
+
+services:
+    # Для балансировки запросов к logstash
+     web-proxy-logstash:
+        image: nginx:latest
+        container_name: nginx-proxy-logstash
+        ports:
+            - "514:514"
+            - "514:514/udp"
+        volumes:
+            - ./nginx-logstash/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./nginx-logstash/mod-proxy-syslog.conf:/etc/nginx/logstash-proxy/mod-proxy-syslog.conf:ro
+            # Без этого не работает. Возможно в будущем надо будет пересоздать образ. Создать Dockerfile с этими файлами 
+            # чтоб не засорять docker-compose
+            - ./nginx-logstash/logstash-connect.log:/var/log/nginx/logstash/logstash-connect.log
+            - ./nginx-logstash/logstash-error.log:/var/log/nginx/logstash/logstash-error.log
+        networks:
+          - elastic
+
+     # Настройка для балансировки запросов к kinaba
+     web-proxy-kibana:
+        image: nginx:latest
+        container_name: nginx-proxy-kibana
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx-kibana/kibana.conf:/etc/nginx/templates/default.conf.template
+        networks:
+            - elastic
+       
