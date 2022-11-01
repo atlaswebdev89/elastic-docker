@@ -6,30 +6,56 @@ networks:
 
 services:
     # Для балансировки запросов к logstash
-     web-proxy-logstash:
+    web-proxy-logstash:
         image: nginx:latest
         container_name: nginx-proxy-logstash
+        restart: unless-stopped
         ports:
             - "514:514"
             - "514:514/udp"
         volumes:
-            - ./nginx-logstash/nginx.conf:/etc/nginx/nginx.conf:ro
-            - ./nginx-logstash/mod-proxy-syslog.conf:/etc/nginx/logstash-proxy/mod-proxy-syslog.conf:ro
+            - ./nginx/nginx-logstash/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./nginx/nginx-logstash/mod-proxy-syslog.conf:/etc/nginx/logstash-proxy/mod-proxy-syslog.conf:ro
             # Без этого не работает. Возможно в будущем надо будет пересоздать образ. Создать Dockerfile с этими файлами 
             # чтоб не засорять docker-compose
-            - ./nginx-logstash/logstash-connect.log:/var/log/nginx/logstash/logstash-connect.log
-            - ./nginx-logstash/logstash-error.log:/var/log/nginx/logstash/logstash-error.log
+            - ./nginx/nginx-logstash/logstash-connect.log:/var/log/nginx/logstash/logstash-connect.log
+            - ./nginx/nginx-logstash/logstash-error.log:/var/log/nginx/logstash/logstash-error.log
         networks:
           - elastic
 
      # Настройка для балансировки запросов к kinaba
-     web-proxy-kibana:
+    web-proxy-kibana:
         image: nginx:latest
         container_name: nginx-proxy-kibana
+        restart: unless-stopped
         ports:
             - "80:80"
         volumes:
-            - ./nginx-kibana/kibana.conf:/etc/nginx/templates/default.conf.template
+            - ./nginx/nginx-kibana/kibana.conf:/etc/nginx/templates/default.conf.template
         networks:
             - elastic
-       
+    
+    # Настройка для Logstash (server 1)
+    elastic-logstash-node-1:
+        build:
+            context: logstash/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: logstash-one
+        networks:
+            - elastic
+        depends_on:
+            - web-proxy-logstash
+    
+    # Настройка для Logstash (server 2)
+    elastic-logstash-node-2:
+        build:
+            context: logstash/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: logstash-two
+        networks:
+            - elastic
+        depends_on:
+            - web-proxy-logstash
+          
