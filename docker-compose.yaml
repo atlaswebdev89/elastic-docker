@@ -42,6 +42,7 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: logstash-one
+        restart: unless-stopped
         networks:
             - elastic
         depends_on:
@@ -54,8 +55,31 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: logstash-two
+        restart: unless-stopped
         networks:
             - elastic
         depends_on:
             - web-proxy-logstash
+
+    # Настройка kibana node 1
+    elastic-kibana-node-1:
+        build:
+            context: kibana/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: kibana-one
+        restart: unless-stopped
+        networks:
+            - elastic
+
+    # Настройка kibana node 1
+    elastic-kibana-node-2:
+        build:
+            context: kibana/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: kibana-two
+        restart: unless-stopped
+        networks:
+            - elastic
           

@@ -484,3 +484,6 @@
 2022/11/01 09:05:20 [info] 22#22: *105 udp client 192.168.1.160:50991 connected to 0.0.0.0:514
 2022/11/01 09:05:20 [info] 22#22: *105 udp proxy 192.168.1.160:58773 connected to 192.168.48.5:5145
 2022/11/01 09:05:22 [info] 22#22: *105 udp timed out, packets from/to client:1/0, bytes from/to client:5/0, bytes from/to upstream:0/5
+2022/11/01 11:05:13 [info] 22#22: *107 udp client 192.168.48.1:56971 connected to 0.0.0.0:514
+2022/11/01 11:05:13 [info] 22#22: *107 udp proxy 192.168.48.1:36884 connected to 192.168.48.4:5145
+2022/11/01 11:05:15 [info] 22#22: *107 udp timed out, packets from/to client:2/0, bytes from/to client:238/0, bytes from/to upstream:0/238
