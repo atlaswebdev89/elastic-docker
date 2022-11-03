@@ -82,4 +82,17 @@ services:
         restart: unless-stopped
         networks:
             - elastic
+    # Настройка Elasticsearch
+    elastic-node-1:
+        build:
+            context: elastic/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-1
+        restart: unless-stopped
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        networks:
+            - elastic
           

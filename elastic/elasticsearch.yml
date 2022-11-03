@@ -1,0 +1,19 @@
+# ======================== Elasticsearch Configuration =========================
+cluster.name: btk-syslog
+node.name: node-04
+#node.roles: [ data ]
+node.master: true
+node.data: true
+#path.data: /var/lib/elasticsearch
+#path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: 9200
+#discovery.seed_hosts: ["host1", "host2"]
+# discovery.seed_hosts: ["192.168.1.137", "192.168.1.106", "192.168.1.160"]
+# cluster.initial_master_nodes: [ "node-01", "node-02", "node-03", "node-4"]
+xpack.security.enabled: true
+# xpack.security.transport.ssl.enabled: true
+# xpack.security.transport.ssl.verification_mode: certificate
+# xpack.security.transport.ssl.client_authentication: required
+# xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+# xpack.security.transport.ssl.truststore.path: elastic-stack-ca.p12
