@@ -90,9 +90,14 @@ services:
             dockerfile: Dockerfile
         container_name: elastic-node-1
         restart: unless-stopped
+        environment:
+            - discovery.type=single-node
+            - TZ=Europe/Minsk
         ports:
             - "9200:9200"
             - "9300:9300"
+        volumes:
+            - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
         networks:
-            - elastic
+            - elastic 
           
