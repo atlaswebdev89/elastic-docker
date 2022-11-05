@@ -10,7 +10,7 @@ network.host: 0.0.0.0
 http.port: 9200
 #discovery.seed_hosts: ["host1", "host2"]
 discovery.seed_hosts: ["elastic-node-1", "elastic-node-2", "elastic-node-3"]
-cluster.initial_master_nodes: ["node-main"]
+cluster.initial_master_nodes: ["node-main", "node-02", "node-01"]
 # xpack.security.enabled: true
 # xpack.security.transport.ssl.enabled: true
 # xpack.security.transport.ssl.verification_mode: certificate

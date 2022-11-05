@@ -113,7 +113,7 @@ services:
         #     - "9300:9300"
         volumes:
             - elastic1-data:/usr/share/elasticsearch/data/
-            - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic 
     
@@ -142,7 +142,7 @@ services:
         #     - "9300:9300"
         volumes:
             - elastic2-data:/usr/share/elasticsearch/data/
-            - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic 
     
@@ -171,7 +171,14 @@ services:
         #     - "9300:9300"
         volumes:
             - elastic3-data:/usr/share/elasticsearch/data/
-            - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
-            - elastic 
-          
+            - elastic
+    cerebro:
+        image: lmenezes/cerebro:latest
+        container_name: cerebro
+        restart: unless-stopped
+        ports:
+            - 8000:9000
+        networks:
+            - elastic    
