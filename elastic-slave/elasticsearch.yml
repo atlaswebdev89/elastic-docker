@@ -1,6 +1,6 @@
 # ======================== Elasticsearch Configuration =========================
 cluster.name: es-clusters
-node.name: node-main
+node.name: node-01
 #node.roles: [ data ]
 node.master: true
 node.data: true

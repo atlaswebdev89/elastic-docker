@@ -1,10 +1,11 @@
 server.port: 5601
 server.host: 0.0.0.0
-xpack.security.enabled: true
-elasticsearch.username: "kibana_system"
-elasticsearch.password: wTyR5NAhWTVcLtV0PamS
+# xpack.security.enabled: true
+# elasticsearch.username: "kibana_system"
+# elasticsearch.password: wTyR5NAhWTVcLtV0PamS
 
 server.publicBaseUrl: "http://elastic-kibana-node-1"
 elasticsearch.hosts:
-- http://192.168.1.237:9200
-- http://192.168.1.243:9200
+- http://elastic-node-2:9200
+- http://elastic-node-1:9200
+- http://elastic-node-3:9200

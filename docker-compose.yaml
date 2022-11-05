@@ -1,8 +1,13 @@
-version: '3.8'
+version: '3.1'
 
 networks:
     elastic:
         driver: bridge
+
+volumes:
+  elastic2-data: 
+  elastic1-data:
+  elastic3-data:  
 
 services:
     # Для балансировки запросов к logstash
@@ -90,13 +95,82 @@ services:
             dockerfile: Dockerfile
         container_name: elastic-node-1
         restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
         environment:
-            - discovery.type=single-node
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
             - TZ=Europe/Minsk
-        ports:
-            - "9200:9200"
-            - "9300:9300"
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        # ports:
+        #     - "9200:9200"
+        #     - "9300:9300"
         volumes:
+            - elastic1-data:/usr/share/elasticsearch/data/
+            - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic 
+    
+    elastic-node-2:
+        build:
+            context: elastic-slave/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-2
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=Europe/Minsk
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        # ports:
+        #     - "9200:9200"
+        #     - "9300:9300"
+        volumes:
+            - elastic2-data:/usr/share/elasticsearch/data/
+            - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic 
+    
+    elastic-node-3:
+        build:
+            context: elastic-slave-2/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-3
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=Europe/Minsk
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        # ports:
+        #     - "9200:9200"
+        #     - "9300:9300"
+        volumes:
+            - elastic3-data:/usr/share/elasticsearch/data/
             - ./elastic/cert/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic 
