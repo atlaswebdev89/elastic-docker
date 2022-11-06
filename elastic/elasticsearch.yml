@@ -11,9 +11,11 @@ http.port: 9200
 #discovery.seed_hosts: ["host1", "host2"]
 discovery.seed_hosts: ["elastic-node-1", "elastic-node-2", "elastic-node-3"]
 cluster.initial_master_nodes: ["node-main", "node-02", "node-01"]
-# xpack.security.enabled: true
-# xpack.security.transport.ssl.enabled: true
-# xpack.security.transport.ssl.verification_mode: certificate
-# xpack.security.transport.ssl.client_authentication: required
-# xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
-# xpack.security.transport.ssl.truststore.path: elastic-stack-ca.p12 
+
+# Защита настраивается когда в enviroments задана переменная SECURITY. Если она не указана это секция не нужна
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: certificate
+xpack.security.transport.ssl.client_authentication: required
+xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: elastic-stack-ca.p12 
