@@ -11,3 +11,8 @@ elasticsearch.hosts:
 - http://elastic-node-2:9200
 - http://elastic-node-1:9200
 - http://elastic-node-3:9200
+
+# Для настройки оповещения
+xpack.security.encryptionKey: "ThisIsToTestTheWazuhXpackSecuirtyTesting000"
+xpack.reporting.encryptionKey: "something_at_least_32_characters"
+xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters"

@@ -190,4 +190,15 @@ services:
         ports:
             - 8000:9000
         networks:
-            - elastic    
+            - elastic  
+
+    elastichq:
+        image: elastichq/elasticsearch-hq
+        container_name: elastichq
+        restart: unless-stopped
+        environment:
+            - "HQ_DEFAULT_URL=http://elastic-node-3:9200"
+        ports:
+            - 5000:5000
+        networks:
+            - elastic 
