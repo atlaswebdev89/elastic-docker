@@ -175,9 +175,9 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
-        # ports:
-        #     - "9200:9200"
-        #     - "9300:9300"
+        ports:
+            - "9200:9200"
+            - "9300:9300"
         volumes:
             - elastic3-data:/usr/share/elasticsearch/data/
             - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
