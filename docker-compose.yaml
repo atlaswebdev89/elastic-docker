@@ -28,6 +28,11 @@ services:
             - ./nginx/nginx-logstash/logstash-error.log:/var/log/nginx/logstash/logstash-error.log
         networks:
           - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
 
      # Настройка для балансировки запросов к kinaba
     web-proxy-kibana:
