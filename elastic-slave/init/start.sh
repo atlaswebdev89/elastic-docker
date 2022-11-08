@@ -10,7 +10,7 @@ fi
 # Настраиваются сертификаты доступа 
 if ! [[ -z ${SECURITY} ]] && [[ ${SECURITY} == "true" ]]
 then
-	if [[ -f /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 ]]
+	if [[ -f /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 ]] && ! [[ -f /usr/share/elasticsearch/config/elastic-certificates.p12 ]]
 	then
 		cp /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 /usr/share/elasticsearch/config/elastic-stack-ca.p12
 		# создаем сертификат для ноды elastic без пароля. Нечего в keystore добавлять не надо

@@ -5,3 +5,4 @@ ERROR: [1] bootstrap checks failed es01 | [1]: max virtual memory areas vm.max_m
 
 sudo sysctl -w vm.max_map_count=262144
 sudo echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+sudo systemctl restart systemd-sysctl.service 

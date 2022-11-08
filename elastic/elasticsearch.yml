@@ -2,7 +2,7 @@
 cluster.name: es-clusters
 node.name: node-main
 #node.roles: [ data ]
-node.master: true
+node.master: true 
 node.data: true
 #path.data: /var/lib/elasticsearch
 #path.logs: /var/log/elasticsearch

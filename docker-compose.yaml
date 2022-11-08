@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 networks:
     elastic:
@@ -14,6 +14,7 @@ services:
     web-proxy-logstash:
         image: nginx:latest
         container_name: nginx-proxy-logstash
+        hostname: nginx-proxy-logstash
         restart: unless-stopped
         ports:
             - "514:514"
@@ -32,13 +33,19 @@ services:
     web-proxy-kibana:
         image: nginx:latest
         container_name: nginx-proxy-kibana
+        hostname: nginx-proxy-kibana
         restart: unless-stopped
         ports:
-            - "80:80"
+            - "${PROXY_NGINX_KIBANA_PORT}:80"
         volumes:
             - ./nginx/nginx-kibana/kibana.conf:/etc/nginx/templates/default.conf.template
         networks:
             - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
     
     # Настройка для Logstash (server 1)
     elastic-logstash-node-1:
@@ -47,11 +54,17 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: logstash-one
+        hostname: logstash-one
         restart: unless-stopped
         networks:
             - elastic
         depends_on:
             - web-proxy-logstash
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
     
     # Настройка для Logstash (server 2)
     elastic-logstash-node-2:
@@ -60,11 +73,17 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: logstash-two
+        hostname: logstash-two
         restart: unless-stopped
         networks:
             - elastic
         depends_on:
             - web-proxy-logstash
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
 
     # Настройка kibana node 1
     elastic-kibana-node-1:
@@ -73,9 +92,21 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: kibana-one
+        hostname: kibana-one
         restart: unless-stopped
+        environment:
+            - SECURITY=true
         networks:
             - elastic
+        depends_on:
+            - elastic-node-1
+            - elastic-node-2
+            - elastic-node-3
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
 
     # Настройка kibana node 1
     elastic-kibana-node-2:
@@ -84,9 +115,21 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: kibana-two
+        hostname: kibana-two
         restart: unless-stopped
+        environment:
+            - SECURITY=true
         networks:
             - elastic
+        depends_on:
+            - elastic-node-1
+            - elastic-node-2
+            - elastic-node-3
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
     # Настройка Elasticsearch
     elastic-node-1:
         build:
@@ -94,6 +137,7 @@ services:
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: elastic-node-1
+        hostname: elastic-node-1
         restart: unless-stopped
         # Без этого не работает при дериктиве bootstrap.memory_lock=true
         ulimits:
@@ -105,71 +149,7 @@ services:
             - bootstrap.memory_lock=true
             # Для одиночного хоста, не в cluster
             # - discovery.type=single-node
-            - TZ=Europe/Minsk
-            # Ограничение размера кучи
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
-            # необходимо запустить скрипт init-ca-cert.sh в папке start/
-            - SECURITY=true
-        # ports:
-        #     - "9200:9200"
-        #     - "9300:9300"
-        volumes:
-            - elastic1-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
-        networks:
-            - elastic 
-    
-    elastic-node-2:
-        build:
-            context: elastic-slave/
-            # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
-        container_name: elastic-node-2
-        restart: unless-stopped
-        # Без этого не работает при дериктиве bootstrap.memory_lock=true
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        environment:
-             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
-            - bootstrap.memory_lock=true
-            # Для одиночного хоста, не в cluster
-            # - discovery.type=single-node
-            - TZ=Europe/Minsk
-            # Ограничение размера кучи
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
-            # необходимо запустить скрипт init-ca-cert.sh в папке start/
-            - SECURITY=true
-        # ports:
-        #     - "9200:9200"
-        #     - "9300:9300"
-        volumes:
-            - elastic2-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
-        networks:
-            - elastic 
-    
-    elastic-node-3:
-        build:
-            context: elastic-slave-2/
-            # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
-        container_name: elastic-node-3
-        restart: unless-stopped
-        # Без этого не работает при дериктиве bootstrap.memory_lock=true
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        environment:
-             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
-            - bootstrap.memory_lock=true
-            # Для одиночного хоста, не в cluster
-            # - discovery.type=single-node
-            - TZ=Europe/Minsk
+            - TZ=${TZ}
             # Ограничение размера кучи
             - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
@@ -179,26 +159,121 @@ services:
             - "9200:9200"
             - "9300:9300"
         volumes:
+            - elastic1-data:/usr/share/elasticsearch/data/
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
+    
+    elastic-node-2:
+        build:
+            context: elastic-slave/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-2
+        hostname: elastic-node-2
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=${TZ}
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
+            # необходимо запустить скрипт init-ca-cert.sh в папке start/
+            - SECURITY=true
+        volumes:
+            - elastic2-data:/usr/share/elasticsearch/data/
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
+    
+    elastic-node-3:
+        build:
+            context: elastic-slave-2/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-3
+        hostname: elastic-node-3
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=${TZ}
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
+            # необходимо запустить скрипт init-ca-cert.sh в папке start/
+            - SECURITY=true
+        volumes:
             - elastic3-data:/usr/share/elasticsearch/data/
             - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
     cerebro:
         image: lmenezes/cerebro:latest
-        container_name: cerebro
+        container_name: cerebro-elastic
+        hostname: cerebro-elastic
         restart: unless-stopped
         ports:
-            - 8000:9000
+            - ${CEREBRO_PORT}:9000
         networks:
-            - elastic  
+            - elastic
+        depends_on:
+            - elastic-node-1
+            - elastic-node-2
+            - elastic-node-3
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"  
 
     elastichq:
         image: elastichq/elasticsearch-hq
         container_name: elastichq
+        hostname: elastichq
         restart: unless-stopped
         environment:
             - "HQ_DEFAULT_URL=http://elastic-node-3:9200"
         ports:
-            - 5000:5000
+            - ${ELASTICHQ_PORT}:5000
         networks:
-            - elastic 
+            - elastic
+        depends_on:
+            - elastic-node-1
+            - elastic-node-2
+            - elastic-node-3
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"

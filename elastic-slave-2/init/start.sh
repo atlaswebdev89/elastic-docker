@@ -8,7 +8,7 @@ then
 fi
 
 # Настраиваются сертификаты доступа 
-if ! [[ -z ${SECURITY} ]] && [[ ${SECURITY} == "true" ]]
+if ! [[ -z ${SECURITY} ]] && [[ ${SECURITY} == "true" ]] && ! [[ -f /usr/share/elasticsearch/config/elastic-certificates.p12 ]]
 then
 	if [[ -f /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 ]]
 	then

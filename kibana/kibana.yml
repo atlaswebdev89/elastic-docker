@@ -1,10 +1,10 @@
 server.port: 5601
 server.host: 0.0.0.0
 
-# Блок настроек если используется защита в elastic. Переменная SECURITY установлена в true
+# Блок настроек если используется защита в elastic. Переменная SECURITY в установлена в true
 xpack.security.enabled: true
 elasticsearch.username: "kibana_system"
-elasticsearch.password: 7Xv6jD2EaYe4VfuiU5Nl
+elasticsearch.password: HmAfem13gDRU2ClaJ1X7
 
 server.publicBaseUrl: "http://elastic-kibana-node-1"
 elasticsearch.hosts:

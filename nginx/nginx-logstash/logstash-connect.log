@@ -562,3 +562,69 @@
 2022/11/04 12:07:31 [info] 22#22: *7 udp client 172.24.0.1:35956 connected to 0.0.0.0:514
 2022/11/04 12:07:31 [info] 22#22: *7 udp proxy 172.24.0.1:39014 connected to 172.24.0.7:5145
 2022/11/04 12:07:31 [info] 22#22: *7 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 06:27:34 [info] 21#21: *1 udp client 172.24.0.1:54212 connected to 0.0.0.0:514
+2022/11/08 06:27:34 [info] 23#23: *2 udp client 172.24.0.1:54212 connected to 0.0.0.0:514
+2022/11/08 06:27:34 [info] 21#21: *1 udp proxy 172.24.0.1:59992 connected to 172.24.0.11:5145
+2022/11/08 06:27:34 [info] 23#23: *2 udp proxy 172.24.0.1:49765 connected to 172.24.0.11:5145
+2022/11/08 06:27:34 [info] 23#23: *2 udp done, packets from/to client:1/0, bytes from/to client:118/0, bytes from/to upstream:0/118
+2022/11/08 06:27:34 [info] 21#21: *1 udp done, packets from/to client:1/0, bytes from/to client:118/0, bytes from/to upstream:0/118
+2022/11/08 06:58:05 [info] 21#21: *1 udp client 172.26.0.1:46367 connected to 0.0.0.0:514
+2022/11/08 06:58:05 [info] 22#22: *2 udp client 172.26.0.1:46367 connected to 0.0.0.0:514
+2022/11/08 06:58:05 [info] 21#21: *1 udp proxy 172.26.0.1:49834 connected to 172.26.0.11:5145
+2022/11/08 06:58:05 [info] 22#22: *2 udp proxy 172.26.0.1:37885 connected to 172.26.0.11:5145
+2022/11/08 06:58:05 [info] 22#22: *2 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 06:58:05 [info] 21#21: *1 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:06:15 [info] 21#21: *5 udp client 172.26.0.1:58853 connected to 0.0.0.0:514
+2022/11/08 07:06:15 [info] 22#22: *6 udp client 172.26.0.1:58853 connected to 0.0.0.0:514
+2022/11/08 07:06:15 [info] 21#21: *5 udp proxy 172.26.0.1:47274 connected to 172.26.0.12:5145
+2022/11/08 07:06:15 [info] 22#22: *6 udp proxy 172.26.0.1:57657 connected to 172.26.0.12:5145
+2022/11/08 07:06:15 [info] 22#22: *6 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:06:15 [info] 21#21: *5 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:10:11 [info] 21#21: *9 udp client 172.26.0.1:49257 connected to 0.0.0.0:514
+2022/11/08 07:10:11 [info] 21#21: *9 udp proxy 172.26.0.1:34431 connected to 172.26.0.11:5145
+2022/11/08 07:10:11 [info] 21#21: *9 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:10:11 [info] 21#21: *11 udp client 172.26.0.1:49257 connected to 0.0.0.0:514
+2022/11/08 07:10:11 [info] 21#21: *11 udp proxy 172.26.0.1:58526 connected to 172.26.0.12:5145
+2022/11/08 07:10:11 [info] 21#21: *11 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:13:24 [info] 21#21: *13 udp client 172.26.0.1:59577 connected to 0.0.0.0:514
+2022/11/08 07:13:24 [info] 22#22: *14 udp client 172.26.0.1:59577 connected to 0.0.0.0:514
+2022/11/08 07:13:24 [info] 21#21: *13 udp proxy 172.26.0.1:60425 connected to 172.26.0.11:5145
+2022/11/08 07:13:24 [info] 22#22: *14 udp proxy 172.26.0.1:46089 connected to 172.26.0.11:5145
+2022/11/08 07:13:24 [info] 21#21: *13 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:13:24 [info] 22#22: *14 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:13:42 [info] 21#21: *17 udp client 172.26.0.1:59577 connected to 0.0.0.0:514
+2022/11/08 07:13:42 [info] 21#21: *17 udp proxy 172.26.0.1:41689 connected to 172.26.0.12:5145
+2022/11/08 07:13:42 [info] 21#21: *17 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:13:42 [info] 21#21: *19 udp client 172.26.0.1:59577 connected to 0.0.0.0:514
+2022/11/08 07:13:42 [info] 21#21: *19 udp proxy 172.26.0.1:49707 connected to 172.26.0.11:5145
+2022/11/08 07:13:42 [info] 21#21: *19 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:17:39 [info] 21#21: *21 udp client 172.26.0.1:36737 connected to 0.0.0.0:514
+2022/11/08 07:17:39 [info] 22#22: *22 udp client 172.26.0.1:36737 connected to 0.0.0.0:514
+2022/11/08 07:17:39 [info] 21#21: *21 udp proxy 172.26.0.1:34132 connected to 172.26.0.12:5145
+2022/11/08 07:17:39 [info] 22#22: *22 udp proxy 172.26.0.1:49525 connected to 172.26.0.12:5145
+2022/11/08 07:17:39 [info] 21#21: *21 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:17:39 [info] 22#22: *22 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:26:24 [info] 21#21: *25 udp client 172.26.0.1:52016 connected to 0.0.0.0:514
+2022/11/08 07:26:24 [info] 22#22: *26 udp client 172.26.0.1:52016 connected to 0.0.0.0:514
+2022/11/08 07:26:24 [info] 22#22: *26 udp proxy 172.26.0.1:60678 connected to 172.26.0.11:5145
+2022/11/08 07:26:24 [info] 21#21: *25 udp proxy 172.26.0.1:44573 connected to 172.26.0.11:5145
+2022/11/08 07:26:24 [info] 22#22: *26 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:26:24 [info] 21#21: *25 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:30:17 [info] 21#21: *29 udp client 172.26.0.1:53902 connected to 0.0.0.0:514
+2022/11/08 07:30:17 [info] 21#21: *29 udp proxy 172.26.0.1:52553 connected to 172.26.0.12:5145
+2022/11/08 07:30:17 [info] 21#21: *29 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:30:17 [info] 21#21: *31 udp client 172.26.0.1:53902 connected to 0.0.0.0:514
+2022/11/08 07:30:17 [info] 21#21: *31 udp proxy 172.26.0.1:49799 connected to 172.26.0.11:5145
+2022/11/08 07:30:17 [info] 21#21: *31 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 07:50:04 [info] 21#21: *33 udp client 172.26.0.1:55427 connected to 0.0.0.0:514
+2022/11/08 07:50:04 [info] 21#21: *33 udp proxy 172.26.0.1:44812 connected to 172.26.0.12:5145
+2022/11/08 07:50:04 [info] 21#21: *33 udp done, packets from/to client:1/0, bytes from/to client:118/0, bytes from/to upstream:0/118
+2022/11/08 07:50:04 [info] 21#21: *35 udp client 172.26.0.1:55427 connected to 0.0.0.0:514
+2022/11/08 07:50:04 [info] 21#21: *35 udp proxy 172.26.0.1:48084 connected to 172.26.0.11:5145
+2022/11/08 07:50:04 [info] 21#21: *35 udp done, packets from/to client:1/0, bytes from/to client:118/0, bytes from/to upstream:0/118
+2022/11/08 10:44:15 [info] 29#29: *1 udp client 172.26.0.1:44745 connected to 0.0.0.0:514
+2022/11/08 10:44:15 [info] 29#29: *1 udp proxy 172.26.0.1:46026 connected to 172.26.0.11:5145
+2022/11/08 10:44:15 [info] 29#29: *1 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/08 10:44:15 [info] 29#29: *3 udp client 172.26.0.1:44745 connected to 0.0.0.0:514
+2022/11/08 10:44:15 [info] 29#29: *3 udp proxy 172.26.0.1:48765 connected to 172.26.0.12:5145
+2022/11/08 10:44:15 [info] 29#29: *3 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
