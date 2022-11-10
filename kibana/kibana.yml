@@ -4,13 +4,12 @@ server.host: 0.0.0.0
 # Блок настроек если используется защита в elastic. Переменная SECURITY в установлена в true
 xpack.security.enabled: true
 elasticsearch.username: "kibana_system"
-elasticsearch.password: HmAfem13gDRU2ClaJ1X7
+elasticsearch.password: 4GTeTUe8zrMqOG2RdE74
 
 server.publicBaseUrl: "http://elastic-kibana-node-1"
 elasticsearch.hosts:
-- http://elastic-node-2:9200
-- http://elastic-node-1:9200
-- http://elastic-node-3:9200
+- http://elastic-node-coordination-1:9200
+- http://elastic-node-coordination-2:9200
 
 # Для настройки оповещения
 xpack.security.encryptionKey: "ThisIsToTestTheWazuhXpackSecuirtyTesting000"

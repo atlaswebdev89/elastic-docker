@@ -8,6 +8,7 @@ volumes:
   elastic2-data: 
   elastic1-data:
   elastic3-data:  
+  elastic4-data:
 
 services:
     # Для балансировки запросов к logstash
@@ -107,6 +108,7 @@ services:
             - elastic-node-1
             - elastic-node-2
             - elastic-node-3
+            - elastic-node-4
         logging:
             driver: "fluentd"
             options:
@@ -130,6 +132,7 @@ services:
             - elastic-node-1
             - elastic-node-2
             - elastic-node-3
+            - elastic-node-4
         logging:
             driver: "fluentd"
             options:
@@ -138,7 +141,7 @@ services:
     # Настройка Elasticsearch
     elastic-node-1:
         build:
-            context: elastic/
+            context: elastic-node-1/
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: elastic-node-1
@@ -176,7 +179,7 @@ services:
     
     elastic-node-2:
         build:
-            context: elastic-slave/
+            context: elastic-node-2/
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: elastic-node-2
@@ -211,7 +214,7 @@ services:
     
     elastic-node-3:
         build:
-            context: elastic-slave-2/
+            context: elastic-node-3/
             # Имя докерфайла из которого будет собран образ
             dockerfile: Dockerfile
         container_name: elastic-node-3
@@ -243,6 +246,111 @@ services:
             options:
                 fluentd-async-connect: "true" 
                 tag: "docker-{{.Name}}"
+    
+    elastic-node-4:
+        build:
+            context: elastic-node-4/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-4
+        hostname: elastic-node-4
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=${TZ}
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
+            # необходимо запустить скрипт init-ca-cert.sh в папке start/
+            - SECURITY=true
+        volumes:
+            - elastic4-data:/usr/share/elasticsearch/data/
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
+
+    # Две ноды elastic будет использовать в качестве балансировки нагрузки. Они будут не мастер и не дата. Только распределяют запросы и учавствуют в выборах мастера
+    elastic-node-coordination-1:
+        build:
+            context: elastic-coordination-1/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-coordination-1
+        hostname: elastic-node-coordination-1
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=${TZ}
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
+            # необходимо запустить скрипт init-ca-cert.sh в папке start/
+            - SECURITY=true
+        volumes:
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
+
+    elastic-node-coordination-2:
+        build:
+            context: elastic-coordination-2/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
+        container_name: elastic-node-coordination-2
+        hostname: elastic-node-coordination-2
+        restart: unless-stopped
+        # Без этого не работает при дериктиве bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        environment:
+             # Отключить использование файла подкачки. Для elastic не рекомендоуется использовать swapp
+            - bootstrap.memory_lock=true
+            # Для одиночного хоста, не в cluster
+            # - discovery.type=single-node
+            - TZ=${TZ}
+            # Ограничение размера кучи
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
+            # необходимо запустить скрипт init-ca-cert.sh в папке start/
+            - SECURITY=true
+        volumes:
+            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
+        networks:
+            - elastic
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-async-connect: "true" 
+                tag: "docker-{{.Name}}"
+
     cerebro:
         image: lmenezes/cerebro:latest
         container_name: cerebro-elastic
@@ -256,6 +364,7 @@ services:
             - elastic-node-1
             - elastic-node-2
             - elastic-node-3
+            - elastic-node-4
         logging:
             driver: "fluentd"
             options:
@@ -277,6 +386,7 @@ services:
             - elastic-node-1
             - elastic-node-2
             - elastic-node-3
+            - elastic-node-4
         logging:
             driver: "fluentd"
             options:

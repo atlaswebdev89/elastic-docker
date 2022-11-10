@@ -1,6 +1,6 @@
 # ======================== Elasticsearch Configuration =========================
 cluster.name: es-clusters
-node.name: node-01
+node.name: node-03
 #node.roles: [ data ]
 node.master: true
 node.data: true
@@ -9,8 +9,8 @@ node.data: true
 network.host: 0.0.0.0
 http.port: 9200
 #discovery.seed_hosts: ["host1", "host2"]
-discovery.seed_hosts: ["elastic-node-1", "elastic-node-2", "elastic-node-3"]
-cluster.initial_master_nodes: ["node-main", "node-02", "node-01"]
+discovery.seed_hosts: ["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+cluster.initial_master_nodes: ["node-01", "node-02", "node-03", "node-04"]
 
 
 # Защита настраивается когда в enviroments задана переменная SECURITY. Если она не указана это секция не нужна

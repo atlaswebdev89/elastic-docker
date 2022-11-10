@@ -32,7 +32,6 @@ then
     rm -R elastic-stack-passwords 
     mkdir elastic-stack-passwords
     mv ${PWD}/get-password/passwords.txt elastic-stack-passwords
-    rm ${PWD}/get-password/passwords.txt
 else
     echo "file password not found"
     exit 1
