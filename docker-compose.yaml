@@ -18,6 +18,10 @@ services:
     # Для балансировки запросов к logstash
     web-proxy-logstash:
         image: nginx:latest
+        # build:
+        #     context: nginx/nginx-logstash/
+        #     # Имя докерфайла из которого будет собран образ
+        #     dockerfile: Dockerfile
         container_name: nginx-proxy-logstash
         hostname: nginx-proxy-logstash
         restart: unless-stopped
@@ -42,6 +46,10 @@ services:
      # Настройка для балансировки запросов к kinaba
     web-proxy-kibana:
         image: nginx:latest
+        # build:
+        #     context: nginx/nginx-kibana/
+        #     # Имя докерфайла из которого будет собран образ
+        #     dockerfile: Dockerfile
         container_name: nginx-proxy-kibana
         hostname: nginx-proxy-kibana
         restart: unless-stopped

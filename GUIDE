@@ -42,3 +42,11 @@ services:
       #discovery.seed_hosts: ["host1", "host2"]
       - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
       - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
+
+
+      docker push webdev89/*
+
+      docker build -t webdev89/elk-nginx-kibana-proxy nginx/nginx-kibana/ && docker push webdev89/elk-nginx-kibana-proxy
+      docker build -t webdev89/elk-nginx-logstash nginx/nginx-logstash/ && docker push webdev89/elk-nginx-logstash
+      docker build -t webdev89/elk-kibana kibana/ && docker push webdev89/elk-kibana
+      
