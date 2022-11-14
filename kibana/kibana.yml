@@ -4,7 +4,7 @@ server.host: 0.0.0.0
 # Блок настроек если используется защита в elastic. Переменная SECURITY в установлена в true
 xpack.security.enabled: true
 elasticsearch.username: "kibana_system"
-elasticsearch.password: 4GTeTUe8zrMqOG2RdE74
+elasticsearch.password: 6VI1KTnEfQJ2IjFzPKnG
 
 server.publicBaseUrl: "http://elastic-kibana-node-1"
 elasticsearch.hosts:

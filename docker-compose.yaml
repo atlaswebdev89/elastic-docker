@@ -9,6 +9,10 @@ volumes:
   elastic1-data:
   elastic3-data:  
   elastic4-data:
+  elastic-coor1-data:
+  elastic-coor2-data:
+  kibana1-data:
+  kibana2-data:
 
 services:
     # Для балансировки запросов к logstash
@@ -102,6 +106,8 @@ services:
         restart: unless-stopped
         environment:
             - SECURITY=true
+        volumes:
+            - kibana1-data:/usr/share/kibana/data/
         networks:
             - elastic
         depends_on:
@@ -126,6 +132,8 @@ services:
         restart: unless-stopped
         environment:
             - SECURITY=true
+        volumes:
+            - kibana2-data:/usr/share/kibana/data/
         networks:
             - elastic
         depends_on:
@@ -308,6 +316,7 @@ services:
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
         volumes:
+            - elastic-coor1-data:/usr/share/elasticsearch/data/
             - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
@@ -342,6 +351,7 @@ services:
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
         volumes:
+            - elastic-coor2-data:/usr/share/elasticsearch/data/
             - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic

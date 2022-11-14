@@ -10,25 +10,26 @@ fi
 # Настраиваются сертификаты доступа 
 if ! [[ -z ${SECURITY} ]] && [[ ${SECURITY} == "true" ]]
 then
-	# Проверяем наличие корневого сертификата и наличие сертификата node elastic. Если сертификат есть то повторно делать сертификат node не надо!!!
-	if [[ -f /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 ]] && ! [[ -f /usr/share/elasticsearch/config/elastic-certificates.p12 ]]
+
+	# Проверяем есть ли сертификат. Если есть нечего не делаем. Если нет создаем новый сертификат
+	if ! [[ -f /usr/share/elasticsearch/config/elastic-certificates.p12 ]]
 	then
-		cp /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 /usr/share/elasticsearch/config/elastic-stack-ca.p12
-		# создаем сертификат для ноды elastic без пароля. Нечего в keystore добавлять не надо
-		/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca /usr/share/elasticsearch/config/elastic-stack-ca.p12 --ca-pass '' --out /usr/share/elasticsearch/config/elastic-certificates.p12 --pass ''
-		# Изменяем права доступа к сертификатам
-		chmod 775 /usr/share/elasticsearch/config/elastic-certificates.p12
-		chmod 775 /usr/share/elasticsearch/config/elastic-stack-ca.p12
-		echo "Setup minimal security. Certificates done!"
-	else 
-		echo "Not found ca certificate. You need run script init-ca-cert.sh!!"
-		exit 1	
+				# Проверяем наличие корневого сертификата. Если нету, то будет ошибка и контейнер не запуститься
+				if [[ -f /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 ]]
+				then
+					cp /usr/share/elasticsearch/config/cert/elastic-stack-ca.p12 /usr/share/elasticsearch/config/elastic-stack-ca.p12
+					# создаем сертификат для ноды elastic без пароля. Нечего в keystore добавлять не надо
+					/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca /usr/share/elasticsearch/config/elastic-stack-ca.p12 --ca-pass '' --out /usr/share/elasticsearch/config/elastic-certificates.p12 --pass ''
+					# Изменяем права доступа к сертификатам
+					chmod 775 /usr/share/elasticsearch/config/elastic-certificates.p12
+					chmod 775 /usr/share/elasticsearch/config/elastic-stack-ca.p12
+					echo "Setup minimal security. Certificates done!"
+				else 
+					echo "Not found ca certificate. You need run script init-ca-cert.sh!!"
+					exit 1	
+				fi
 	fi
 fi
 
 # Запуст команды из под пользователя elasticsearch
 su elasticsearch -c /usr/share/elasticsearch/bin/elasticsearch 
-
-
-
-
