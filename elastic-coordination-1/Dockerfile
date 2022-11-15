@@ -11,7 +11,8 @@ RUN apt update && apt -y upgrade \
 
 # # #WORKDIR "/var/www"
 
-COPY --chown=elasticsearch:elasticsearch ./elasticsearch.yml /usr/share/elasticsearch/config/
+# COPY --chown=elasticsearch:elasticsearch ./elasticsearch.yml /usr/share/elasticsearch/config/
 
-COPY /init/start.sh /usr/local/bin/start.sh
+COPY /ca-stack-cluster/elastic-stack-ca.p12 /usr/share/elasticsearch/config/cert/
+COPY elastic-coordination-1/init/start.sh /usr/local/bin/start.sh
 CMD /usr/local/bin/start.sh

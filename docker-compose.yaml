@@ -17,11 +17,11 @@ volumes:
 services:
     # Для балансировки запросов к logstash
     web-proxy-logstash:
-        image: nginx:latest
-        # build:
-        #     context: nginx/nginx-logstash/
-        #     # Имя докерфайла из которого будет собран образ
-        #     dockerfile: Dockerfile
+        # image: nginx:latest
+        build:
+            context: nginx/nginx-logstash/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
         container_name: nginx-proxy-logstash
         hostname: nginx-proxy-logstash
         restart: unless-stopped
@@ -45,11 +45,11 @@ services:
 
      # Настройка для балансировки запросов к kinaba
     web-proxy-kibana:
-        image: nginx:latest
-        # build:
-        #     context: nginx/nginx-kibana/
-        #     # Имя докерфайла из которого будет собран образ
-        #     dockerfile: Dockerfile
+        # image: nginx:latest
+        build:
+            context: nginx/nginx-kibana/
+            # Имя докерфайла из которого будет собран образ
+            dockerfile: Dockerfile
         container_name: nginx-proxy-kibana
         hostname: nginx-proxy-kibana
         restart: unless-stopped
@@ -68,9 +68,9 @@ services:
     # Настройка для Logstash (server 1)
     elastic-logstash-node-1:
         build:
-            context: logstash/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: logstash/Dockerfile
         container_name: logstash-one
         hostname: logstash-one
         restart: unless-stopped
@@ -87,9 +87,9 @@ services:
     # Настройка для Logstash (server 2)
     elastic-logstash-node-2:
         build:
-            context: logstash/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: logstash/Dockerfile
         container_name: logstash-two
         hostname: logstash-two
         restart: unless-stopped
@@ -106,14 +106,19 @@ services:
     # Настройка kibana node 1
     elastic-kibana-node-1:
         build:
-            context: kibana/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./kibana/Dockerfile
         container_name: kibana-one
         hostname: kibana-one
         restart: unless-stopped
         environment:
             - SECURITY=true
+            - USER_NAME=kibana_system
+            - PASSWORD=mMkvWmbO1TiHCuZjzZyj
+            - ELASTIC_HOST=elastic-node-coordination-1
+            - ELASTIC_HOST_SECONDORY=elastic-node-coordination-2
+            - PUBLIC_BASE_URL=elastic-kibana-node-1
         volumes:
             - kibana1-data:/usr/share/kibana/data/
         networks:
@@ -132,14 +137,19 @@ services:
     # Настройка kibana node 1
     elastic-kibana-node-2:
         build:
-            context: kibana/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./kibana/Dockerfile
         container_name: kibana-two
         hostname: kibana-two
         restart: unless-stopped
         environment:
             - SECURITY=true
+            - USER_NAME=kibana_system
+            - PASSWORD=mMkvWmbO1TiHCuZjzZyj
+            - ELASTIC_HOST=elastic-node-coordination-1
+            - ELASTIC_HOST_SECONDORY=elastic-node-coordination-2
+            - PUBLIC_BASE_URL=elastic-kibana-node-2
         volumes:
             - kibana2-data:/usr/share/kibana/data/
         networks:
@@ -157,9 +167,9 @@ services:
     # Настройка Elasticsearch
     elastic-node-1:
         build:
-            context: elastic-node-1/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./elastic-node-1/Dockerfile
         container_name: elastic-node-1
         hostname: elastic-node-1
         restart: unless-stopped
@@ -179,12 +189,18 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
+            - CLUSTER_NAME=es-clusters
+            - NODE_NAME=node-01
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_PORT=9200
+            #discovery.seed_hosts: ["host1", "host2"]
+            - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+            - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
         ports:
             - "9200:9200"
             - "9300:9300"
         volumes:
             - elastic1-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
         logging:
@@ -195,9 +211,9 @@ services:
     
     elastic-node-2:
         build:
-            context: elastic-node-2/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./elastic-node-2/Dockerfile
         container_name: elastic-node-2
         hostname: elastic-node-2
         restart: unless-stopped
@@ -217,9 +233,14 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
+            - CLUSTER_NAME=es-clusters
+            - NODE_NAME=node-02
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_PORT=9200
+            - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+            - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
         volumes:
             - elastic2-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
         logging:
@@ -230,9 +251,9 @@ services:
     
     elastic-node-3:
         build:
-            context: elastic-node-3/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./elastic-node-3/Dockerfile
         container_name: elastic-node-3
         hostname: elastic-node-3
         restart: unless-stopped
@@ -252,9 +273,14 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
+            - CLUSTER_NAME=es-clusters
+            - NODE_NAME=node-03
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_PORT=9200
+            - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+            - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
         volumes:
             - elastic3-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
         logging:
@@ -265,9 +291,9 @@ services:
     
     elastic-node-4:
         build:
-            context: elastic-node-4/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./elastic-node-4/Dockerfile
         container_name: elastic-node-4
         hostname: elastic-node-4
         restart: unless-stopped
@@ -287,9 +313,14 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
+            - CLUSTER_NAME=es-clusters
+            - NODE_NAME=node-04
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_PORT=9200
+            - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+            - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
         volumes:
             - elastic4-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
         logging:
@@ -301,9 +332,9 @@ services:
     # Две ноды elastic будет использовать в качестве балансировки нагрузки. Они будут не мастер и не дата. Только распределяют запросы и учавствуют в выборах мастера
     elastic-node-coordination-1:
         build:
-            context: elastic-coordination-1/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./elastic-coordination-1/Dockerfile
         container_name: elastic-node-coordination-1
         hostname: elastic-node-coordination-1
         restart: unless-stopped
@@ -323,9 +354,17 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
+            - CLUSTER_NAME=es-clusters
+            - NODE_NAME=node-coordination-01
+            - NODE_ROLES=[ master, voting_only ]
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_PORT=9200
+            - TRANSPORT_HOSTS=0.0.0.0 
+            - TRANSPORT_TCP_PORT=9300-9400
+            - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+            - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
         volumes:
             - elastic-coor1-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
         logging:
@@ -336,9 +375,9 @@ services:
 
     elastic-node-coordination-2:
         build:
-            context: elastic-coordination-2/
+            context: .
             # Имя докерфайла из которого будет собран образ
-            dockerfile: Dockerfile
+            dockerfile: ./elastic-coordination-2/Dockerfile
         container_name: elastic-node-coordination-2
         hostname: elastic-node-coordination-2
         restart: unless-stopped
@@ -358,9 +397,17 @@ services:
             # Включаем настройку безопасности с применением сертификатов. Для получения корневого сертификата 
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
+            - CLUSTER_NAME=es-clusters
+            - NODE_NAME=node-coordination-02
+            - NODE_ROLES=[ master, voting_only ]
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_PORT=9200
+            - TRANSPORT_HOSTS=0.0.0.0 
+            - TRANSPORT_TCP_PORT=9300-9400
+            - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
+            - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
         volumes:
             - elastic-coor2-data:/usr/share/elasticsearch/data/
-            - ./ca-stack-cluster/:/usr/share/elasticsearch/config/cert/
         networks:
             - elastic
         logging:

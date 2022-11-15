@@ -1,6 +1,6 @@
 FROM kibana:7.17.7
 
-COPY ./kibana.yml /usr/share/kibana/config/
-COPY test.sh /usr/local/bin/
+# COPY /kibana.yml /usr/share/kibana/config/
 
-RUN /usr/local/bin/test.sh
+COPY /kibana/init/start.sh /usr/local/bin/start.sh
+CMD /usr/local/bin/start.sh

@@ -8,45 +8,9 @@ Basic Authentication: If you did not enter in the security credentials in the co
 http://USERNAME:PASSWORD@DOMAIN:PORT
 
 
-
-
-
-
-
-version: '3.8'
-
-# networks:
-
-# volumes:
-
-services:
-  hello:
-    build:
-        context: .
-        # Имя докерфайла из которого будет собран образ
-        dockerfile: Dockerfile
-    container_name: helloworld
-    hostname: hello
-    restart: unless-stopped
-    ports:
-      - "8010:8000"
-    environment:
-      - SECURITY=true
-      - CLUSTER_NAME=SSSSS
-      - NODE_NAME=node-02
-      - NODE_ROLES=[ master, data ]
-      - NETWORK_HOST=0.0.0.0
-      - HTTP_PORT=9200
-      - TRANSPORT_HOST=0.0.0.0          # Адрес для связи с кластером
-      - TRANSPORT_TCP_PORT=9300-9400   # Порты для коммуникации внутри кластера
-      #discovery.seed_hosts: ["host1", "host2"]
-      - DISCOVERY_SEED_HOSTS=["elastic-node-1", "elastic-node-2", "elastic-node-3", "elastic-node-4"]
-      - CLUSTER_INITIAL_MASTER_NODES=["node-01", "node-02", "node-03", "node-04"]
-
-
-      docker push webdev89/*
-
       docker build -t webdev89/elk-nginx-kibana-proxy nginx/nginx-kibana/ && docker push webdev89/elk-nginx-kibana-proxy
       docker build -t webdev89/elk-nginx-logstash nginx/nginx-logstash/ && docker push webdev89/elk-nginx-logstash
-      docker build -t webdev89/elk-kibana kibana/ && docker push webdev89/elk-kibana
-      
+      docker build -t webdev89/elk-kibana -f kibana/Dockerfile . && docker push webdev89/elk-kibana
+      docker build -t webdev89/elk-elastic-node -f elastic-node-1/Dockerfile . && docker push webdev89/elk-elastic-node
+      docker build -t webdev89/elk-elastic-coor -f elastic-coordination-1/Dockerfile . && docker push webdev89/elk-elastic-coor
+      docker build -t webdev89/elk-logstash -f logstash/Dockerfile . && docker push webdev89/elk-logstash

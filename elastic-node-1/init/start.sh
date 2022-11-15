@@ -31,5 +31,47 @@ then
 	fi
 fi
 
+# Формирование конфигаруционного файла для Elasticsearch
+if  [[ -z $CLUSTER_NAME ]]; then
+    CLUSTER_NAME=node-elastic-1
+fi
+
+
+cat << EOF > /usr/share/elasticsearch/config/elasticsearch.yml
+# ======================== Elasticsearch Configuration =========================
+            cluster.name: $CLUSTER_NAME
+            node.name: $NODE_NAME
+            node.master: true 
+            node.data: true
+            network.host: $NETWORK_HOST
+            http.port: $HTTP_PORT
+            discovery.seed_hosts: $DISCOVERY_SEED_HOSTS
+            cluster.initial_master_nodes: $CLUSTER_INITIAL_MASTER_NODES
+EOF
+# Бесконечный цикл
+
+if ! [[ -z $SECURITY ]]  && [[ $SECURITY==true ]]; then
+cat << EOF >> /usr/share/elasticsearch/config/elasticsearch.yml
+            # Защита настраивается когда в enviroments задана переменная SECURITY. Если она не указана это секция не нужна
+            xpack.security.enabled: true
+            xpack.security.transport.ssl.enabled: true
+            xpack.security.transport.ssl.verification_mode: certificate
+            xpack.security.transport.ssl.client_authentication: required
+            xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+            xpack.security.transport.ssl.truststore.path: elastic-stack-ca.p12 
+            # Без этой настройки не работают оповещения в elastic
+            xpack.security.authc.api_key.enabled: true
+EOF
+fi
+
+
+if [[ -f /usr/share/elasticsearch/config/elasticsearch.yml ]]; then
+    chown elasticsearch:elasticsearch /usr/share/elasticsearch/config/elasticsearch.yml
+else 
+    echo "File elasticsearch.yml not found";
+	exit 0;
+fi
+
+
 # Запуст команды из под пользователя elasticsearch
 su elasticsearch -c /usr/share/elasticsearch/bin/elasticsearch 
