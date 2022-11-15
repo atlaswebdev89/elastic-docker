@@ -11,8 +11,7 @@ volumes:
   elastic4-data:
   elastic-coor1-data:
   elastic-coor2-data:
-  kibana1-data:
-  kibana2-data:
+  kibana-data:
 
 services:
     # Для балансировки запросов к logstash
@@ -66,13 +65,13 @@ services:
                 tag: "docker-{{.Name}}"
     
     # Настройка для Logstash (server 1)
-    elastic-logstash-node-1:
+    elastic-logstash-node:
         build:
             context: .
             # Имя докерфайла из которого будет собран образ
             dockerfile: logstash/Dockerfile
-        container_name: logstash-one
-        hostname: logstash-one
+        container_name: logstash
+        hostname: logstash
         restart: unless-stopped
         networks:
             - elastic
@@ -84,43 +83,24 @@ services:
                 fluentd-async-connect: "true" 
                 tag: "docker-{{.Name}}"
     
-    # Настройка для Logstash (server 2)
-    elastic-logstash-node-2:
-        build:
-            context: .
-            # Имя докерфайла из которого будет собран образ
-            dockerfile: logstash/Dockerfile
-        container_name: logstash-two
-        hostname: logstash-two
-        restart: unless-stopped
-        networks:
-            - elastic
-        depends_on:
-            - web-proxy-logstash
-        logging:
-            driver: "fluentd"
-            options:
-                fluentd-async-connect: "true" 
-                tag: "docker-{{.Name}}"
-
     # Настройка kibana node 1
-    elastic-kibana-node-1:
+    elastic-kibana-node:
         build:
             context: .
             # Имя докерфайла из которого будет собран образ
             dockerfile: ./kibana/Dockerfile
-        container_name: kibana-one
-        hostname: kibana-one
+        container_name: kibana
+        hostname: kibana
         restart: unless-stopped
         environment:
             - SECURITY=true
             - USER_NAME=kibana_system
-            - PASSWORD=mMkvWmbO1TiHCuZjzZyj
+            - PASSWORD=54kXwRDoG3GVWrJk2nPj
             - ELASTIC_HOST=elastic-node-coordination-1
             - ELASTIC_HOST_SECONDORY=elastic-node-coordination-2
             - PUBLIC_BASE_URL=elastic-kibana-node-1
         volumes:
-            - kibana1-data:/usr/share/kibana/data/
+            - kibana-data:/usr/share/kibana/data/
         networks:
             - elastic
         depends_on:
@@ -134,36 +114,7 @@ services:
                 fluentd-async-connect: "true" 
                 tag: "docker-{{.Name}}"
 
-    # Настройка kibana node 1
-    elastic-kibana-node-2:
-        build:
-            context: .
-            # Имя докерфайла из которого будет собран образ
-            dockerfile: ./kibana/Dockerfile
-        container_name: kibana-two
-        hostname: kibana-two
-        restart: unless-stopped
-        environment:
-            - SECURITY=true
-            - USER_NAME=kibana_system
-            - PASSWORD=mMkvWmbO1TiHCuZjzZyj
-            - ELASTIC_HOST=elastic-node-coordination-1
-            - ELASTIC_HOST_SECONDORY=elastic-node-coordination-2
-            - PUBLIC_BASE_URL=elastic-kibana-node-2
-        volumes:
-            - kibana2-data:/usr/share/kibana/data/
-        networks:
-            - elastic
-        depends_on:
-            - elastic-node-1
-            - elastic-node-2
-            - elastic-node-3
-            - elastic-node-4
-        logging:
-            driver: "fluentd"
-            options:
-                fluentd-async-connect: "true" 
-                tag: "docker-{{.Name}}"
+    
     # Настройка Elasticsearch
     elastic-node-1:
         build:
