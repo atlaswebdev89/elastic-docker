@@ -41,8 +41,9 @@ cat << EOF > /usr/share/elasticsearch/config/elasticsearch.yml
 # ======================== Elasticsearch Configuration =========================
             cluster.name: $CLUSTER_NAME
             node.name: $NODE_NAME
-            node.master: true 
-            node.data: true
+            node.roles: $NODE_ROLES
+            #node.master: true 
+            #node.data: true
             network.host: $NETWORK_HOST
             http.port: $HTTP_PORT
             discovery.seed_hosts: $DISCOVERY_SEED_HOSTS

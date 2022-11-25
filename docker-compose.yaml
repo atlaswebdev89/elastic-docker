@@ -95,7 +95,7 @@ services:
         environment:
             - SECURITY=true
             - USER_NAME=kibana_system
-            - PASSWORD=54kXwRDoG3GVWrJk2nPj
+            - PASSWORD=IInX3Xb5VwaIPX4YSWrg
             - ELASTIC_HOST=elastic-node-coordination-1
             - ELASTIC_HOST_SECONDORY=elastic-node-coordination-2
             - PUBLIC_BASE_URL=elastic-kibana-node-1
@@ -141,6 +141,7 @@ services:
             # необходимо запустить скрипт init-ca-cert.sh в папке start/
             - SECURITY=true
             - CLUSTER_NAME=es-clusters
+            - NODE_ROLES=[data,master]
             - NODE_NAME=node-01
             - NETWORK_HOST=0.0.0.0
             - HTTP_PORT=9200

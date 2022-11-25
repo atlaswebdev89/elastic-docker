@@ -793,3 +793,114 @@
 2022/11/11 12:19:30 [info] 22#22: *7 udp client 172.19.0.1:36275 connected to 0.0.0.0:514
 2022/11/11 12:19:30 [info] 22#22: *7 udp proxy 172.19.0.1:52476 connected to 172.19.0.10:5145
 2022/11/11 12:19:30 [info] 22#22: *7 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/18 09:37:09 [info] 22#22: *1 udp client 104.152.52.91:44220 connected to 0.0.0.0:514
+2022/11/18 09:37:09 [info] 22#22: *1 udp proxy 104.152.52.91:34089 connected to 172.19.0.12:5145
+2022/11/18 09:37:09 [info] 22#22: *1 udp done, packets from/to client:1/0, bytes from/to client:0/0, bytes from/to upstream:0/0
+2022/11/18 09:37:29 [info] 22#22: *3 client 104.152.52.91:44220 connected to 0.0.0.0:514
+2022/11/18 09:37:29 [info] 22#22: *3 proxy 172.19.0.4:60504 connected to 172.19.0.12:5145
+2022/11/18 09:37:39 [info] 22#22: *3 connection timed out (110: Connection timed out) while proxying connection, client: 104.152.52.91, server: 0.0.0.0:514, upstream: "172.19.0.12:5145", bytes from/to client:0/0, bytes from/to upstream:0/47
+2022/11/21 07:48:52 [info] 23#23: *1 udp client 172.19.0.1:55405 connected to 0.0.0.0:514
+2022/11/21 07:48:52 [info] 22#22: *2 udp client 172.19.0.1:55405 connected to 0.0.0.0:514
+2022/11/21 07:48:52 [info] 23#23: *1 udp proxy 172.19.0.1:53984 connected to 172.19.0.11:5145
+2022/11/21 07:48:52 [info] 22#22: *2 udp proxy 172.19.0.1:51343 connected to 172.19.0.11:5145
+2022/11/21 07:48:52 [info] 22#22: *2 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/21 07:48:52 [info] 23#23: *1 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/21 08:02:17 [info] 23#23: *5 client 192.241.201.144:60322 connected to 0.0.0.0:514
+2022/11/21 08:02:17 [info] 23#23: *5 proxy 172.19.0.4:49722 connected to 172.19.0.11:5145
+2022/11/21 08:02:27 [info] 23#23: *5 client disconnected, bytes from/to client:25/0, bytes from/to upstream:0/74
+2022/11/22 10:55:35 [info] 23#23: *1 udp client 172.19.0.1:40437 connected to 0.0.0.0:514
+2022/11/22 10:55:35 [info] 22#22: *2 udp client 172.19.0.1:40437 connected to 0.0.0.0:514
+2022/11/22 10:55:35 [info] 23#23: *1 udp proxy 172.19.0.1:59212 connected to 172.19.0.4:5145
+2022/11/22 10:55:35 [info] 22#22: *2 udp proxy 172.19.0.1:47349 connected to 172.19.0.4:5145
+2022/11/22 10:55:35 [info] 22#22: *2 udp done, packets from/to client:1/0, bytes from/to client:143/0, bytes from/to upstream:0/143
+2022/11/22 10:55:35 [info] 23#23: *1 udp done, packets from/to client:1/0, bytes from/to client:143/0, bytes from/to upstream:0/143
+2022/11/22 10:55:37 [info] 23#23: *5 udp client 172.19.0.1:40437 connected to 0.0.0.0:514
+2022/11/22 10:55:37 [info] 23#23: *5 udp proxy 172.19.0.1:33408 connected to 172.19.0.4:5145
+2022/11/22 10:55:37 [info] 23#23: *5 udp done, packets from/to client:1/0, bytes from/to client:143/0, bytes from/to upstream:0/143
+2022/11/22 10:55:37 [info] 23#23: *7 udp client 172.19.0.1:40437 connected to 0.0.0.0:514
+2022/11/22 10:55:37 [info] 23#23: *7 udp proxy 172.19.0.1:39569 connected to 172.19.0.4:5145
+2022/11/22 10:55:37 [info] 23#23: *7 udp done, packets from/to client:1/0, bytes from/to client:143/0, bytes from/to upstream:0/143
+2022/11/22 11:06:42 [info] 23#23: *9 udp client 172.19.0.1:46265 connected to 0.0.0.0:514
+2022/11/22 11:06:42 [info] 23#23: *9 udp proxy 172.19.0.1:59287 connected to 172.19.0.4:5145
+2022/11/22 11:06:42 [info] 23#23: *9 udp done, packets from/to client:1/0, bytes from/to client:120/0, bytes from/to upstream:0/120
+2022/11/22 11:06:42 [info] 23#23: *11 udp client 172.19.0.1:46265 connected to 0.0.0.0:514
+2022/11/22 11:06:42 [info] 23#23: *11 udp proxy 172.19.0.1:60029 connected to 172.19.0.4:5145
+2022/11/22 11:06:42 [info] 23#23: *11 udp done, packets from/to client:1/0, bytes from/to client:120/0, bytes from/to upstream:0/120
+2022/11/22 11:06:42 [info] 23#23: *13 udp client 172.19.0.1:46265 connected to 0.0.0.0:514
+2022/11/22 11:06:42 [info] 23#23: *13 udp proxy 172.19.0.1:46022 connected to 172.19.0.4:5145
+2022/11/22 11:06:42 [info] 23#23: *13 udp done, packets from/to client:1/0, bytes from/to client:120/0, bytes from/to upstream:0/120
+2022/11/22 11:06:42 [info] 23#23: *15 udp client 172.19.0.1:46265 connected to 0.0.0.0:514
+2022/11/22 11:06:42 [info] 23#23: *15 udp proxy 172.19.0.1:39481 connected to 172.19.0.4:5145
+2022/11/22 11:06:42 [info] 23#23: *15 udp done, packets from/to client:1/0, bytes from/to client:120/0, bytes from/to upstream:0/120
+2022/11/22 12:20:13 [info] 23#23: *17 udp client 172.19.0.1:40180 connected to 0.0.0.0:514
+2022/11/22 12:20:13 [info] 23#23: *17 udp proxy 172.19.0.1:50959 connected to 172.19.0.4:5145
+2022/11/22 12:20:13 [info] 23#23: *17 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/22 12:20:13 [info] 23#23: *19 udp client 172.19.0.1:40180 connected to 0.0.0.0:514
+2022/11/22 12:20:13 [info] 23#23: *19 udp proxy 172.19.0.1:55837 connected to 172.19.0.4:5145
+2022/11/22 12:20:13 [info] 23#23: *19 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/23 08:47:33 [info] 21#21: *1 udp client 172.19.0.1:52769 connected to 0.0.0.0:514
+2022/11/23 08:47:33 [info] 22#22: *2 udp client 172.19.0.1:52769 connected to 0.0.0.0:514
+2022/11/23 08:47:33 [info] 21#21: *1 udp proxy 172.19.0.1:33326 connected to 172.19.0.11:5145
+2022/11/23 08:47:33 [info] 22#22: *2 udp proxy 172.19.0.1:58460 connected to 172.19.0.11:5145
+2022/11/23 08:47:33 [info] 22#22: *2 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/23 08:47:33 [info] 21#21: *1 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/23 09:46:11 [info] 21#21: *5 udp client 172.19.0.1:55868 connected to 0.0.0.0:514
+2022/11/23 09:46:11 [info] 22#22: *6 udp client 172.19.0.1:55868 connected to 0.0.0.0:514
+2022/11/23 09:46:11 [info] 21#21: *5 udp proxy 172.19.0.1:53005 connected to 172.19.0.11:5145
+2022/11/23 09:46:11 [info] 22#22: *6 udp proxy 172.19.0.1:36794 connected to 172.19.0.11:5145
+2022/11/23 09:46:11 [info] 21#21: *5 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/23 09:46:11 [info] 22#22: *6 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/24 11:26:15 [info] 22#22: *2 udp client 172.19.0.1:42054 connected to 0.0.0.0:514
+2022/11/24 11:26:15 [info] 21#21: *1 udp client 172.19.0.1:42054 connected to 0.0.0.0:514
+2022/11/24 11:26:15 [info] 22#22: *2 udp proxy 172.19.0.1:49457 connected to 172.19.0.12:5145
+2022/11/24 11:26:15 [info] 21#21: *1 udp proxy 172.19.0.1:38702 connected to 172.19.0.12:5145
+2022/11/24 11:26:15 [info] 21#21: *1 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/24 11:26:15 [info] 22#22: *2 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/24 14:03:44 [info] 21#21: *5 udp client 172.19.0.1:57159 connected to 0.0.0.0:514
+2022/11/24 14:03:44 [info] 22#22: *6 udp client 172.19.0.1:57159 connected to 0.0.0.0:514
+2022/11/24 14:03:44 [info] 21#21: *5 udp proxy 172.19.0.1:35327 connected to 172.19.0.12:5145
+2022/11/24 14:03:44 [info] 22#22: *6 udp proxy 172.19.0.1:35588 connected to 172.19.0.12:5145
+2022/11/24 14:03:44 [info] 22#22: *6 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/24 14:03:44 [info] 21#21: *5 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/25 12:03:50 [info] 22#22: *1 client 192.168.1.160:40580 connected to 0.0.0.0:514
+2022/11/25 12:03:50 [info] 22#22: *1 proxy 172.19.0.13:53652 connected to 172.19.0.4:5145
+2022/11/25 12:03:50 [info] 22#22: *1 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:03:50 [info] 22#22: *1 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:08:44 [info] 25#25: *3 client 192.168.1.160:33864 connected to 0.0.0.0:514
+2022/11/25 12:08:44 [info] 25#25: *3 proxy 172.19.0.13:58116 connected to 172.19.0.4:5145
+2022/11/25 12:08:44 [info] 25#25: *3 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:08:44 [info] 25#25: *3 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:08:47 [info] 23#23: *5 client 192.168.1.160:33870 connected to 0.0.0.0:514
+2022/11/25 12:08:47 [info] 23#23: *5 proxy 172.19.0.13:58124 connected to 172.19.0.4:5145
+2022/11/25 12:08:47 [info] 23#23: *5 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:08:47 [info] 23#23: *5 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:10:21 [info] 22#22: *7 udp client 172.19.0.1:45271 connected to 0.0.0.0:514
+2022/11/25 12:10:21 [info] 22#22: *7 udp proxy 172.19.0.1:52088 connected to 172.19.0.4:5145
+2022/11/25 12:10:21 [info] 22#22: *7 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/25 12:10:21 [info] 22#22: *9 udp client 172.19.0.1:45271 connected to 0.0.0.0:514
+2022/11/25 12:10:21 [info] 22#22: *9 udp proxy 172.19.0.1:60345 connected to 172.19.0.4:5145
+2022/11/25 12:10:21 [info] 22#22: *9 udp done, packets from/to client:1/0, bytes from/to client:119/0, bytes from/to upstream:0/119
+2022/11/25 12:10:46 [info] 24#24: *11 client 192.168.1.160:35878 connected to 0.0.0.0:514
+2022/11/25 12:10:46 [info] 24#24: *11 proxy 172.19.0.13:51304 connected to 172.19.0.4:5145
+2022/11/25 12:10:46 [info] 24#24: *11 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:10:46 [info] 24#24: *11 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:11:03 [info] 30#30: *13 client 192.168.1.160:55142 connected to 0.0.0.0:514
+2022/11/25 12:11:03 [info] 30#30: *13 proxy 172.19.0.13:46884 connected to 172.19.0.4:5145
+2022/11/25 12:11:03 [info] 30#30: *13 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:11:03 [info] 30#30: *13 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:12:58 [info] 32#32: *15 client 192.168.1.160:54196 connected to 0.0.0.0:514
+2022/11/25 12:12:58 [info] 32#32: *15 proxy 172.19.0.13:44356 connected to 172.19.0.4:5145
+2022/11/25 12:12:58 [info] 32#32: *15 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:12:58 [info] 32#32: *15 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:13:05 [info] 31#31: *17 client 192.168.1.160:58954 connected to 0.0.0.0:514
+2022/11/25 12:13:05 [info] 31#31: *17 proxy 172.19.0.13:58558 connected to 172.19.0.4:5145
+2022/11/25 12:13:05 [info] 31#31: *17 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:13:05 [info] 31#31: *17 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:13:56 [info] 27#27: *19 client 192.168.1.160:38588 connected to 0.0.0.0:514
+2022/11/25 12:13:56 [info] 27#27: *19 proxy 172.19.0.13:48806 connected to 172.19.0.4:5145
+2022/11/25 12:13:56 [info] 27#27: *19 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:13:56 [info] 27#27: *19 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:15:47 [info] 33#33: *21 client 192.168.1.160:55586 connected to 0.0.0.0:514
+2022/11/25 12:15:47 [info] 33#33: *21 proxy 172.19.0.13:54464 connected to 172.19.0.4:5145
+2022/11/25 12:15:47 [info] 33#33: *21 recv() failed (104: Connection reset by peer) while proxying and reading from client, client: 192.168.1.160, server: 0.0.0.0:514, upstream: "172.19.0.4:5145", bytes from/to client:0/0, bytes from/to upstream:0/48
+2022/11/25 12:15:47 [info] 33#33: *21 client disconnected, bytes from/to client:0/0, bytes from/to upstream:0/48
