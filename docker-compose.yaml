@@ -95,7 +95,7 @@ services:
         environment:
             - SECURITY=true
             - USER_NAME=kibana_system
-            - PASSWORD=IInX3Xb5VwaIPX4YSWrg
+            - PASSWORD=8gX2qwl57rl9G8TgLQjm
             - ELASTIC_HOST=elastic-node-coordination-1
             - ELASTIC_HOST_SECONDORY=elastic-node-coordination-2
             - PUBLIC_BASE_URL=elastic-kibana-node-1
